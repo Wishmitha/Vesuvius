@@ -2,23 +2,61 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-def list_subfolders(path):
+from sklearn.preprocessing import OneHotEncoder
 
+
+def list_subfolders(path):
     subfolder_list = []
 
     # Iterate over the folders in the specified directory
     for folder_name in os.listdir(path):
-        folder_dir = os.path.join(folder_path, folder_name)
+        folder_dir = os.path.join(path, folder_name)
         # Check if the item is a directory
         if os.path.isdir(folder_dir):
             subfolder_list.append(folder_name)
 
-    print(subfolder_list)
+    return subfolder_list
+
 
 def read_alpub_data(path):
+    # List of character labels same as sub-folder names
+    character_labels = list_subfolders(path)
 
-    pass
+    # Initialize empty lists to store images and labels
+    images = []
+    labels = []
 
-if __name__ == '__main__':
-    ALPUB_PATH = '../../Datasets/alpub_v2'
-    read_alpub_data(path=ALPUB_PATH)
+    # Create an instance of the OneHotEncoder
+    encoder = OneHotEncoder()
+    # Fit the encoder on the character labels
+    encoder.fit(np.array(character_labels).reshape(-1, 1))
+    # Convert the character labels to one-hot encoding
+    one_hot_labels = encoder.transform(np.array(character_labels).reshape(-1, 1)).toarray()
+    one_hot_dict = {label: one_hot for label, one_hot in zip(character_labels, one_hot_labels)}
+
+    # Loop through each character label
+    for character in character_labels:
+        character_folder = os.path.join(path, character)  # Path to the character folder
+
+        print("Processing", character)
+
+        # Loop through each image file in the character folder
+        for image_file in os.listdir(character_folder):
+            image_path = os.path.join(character_folder, image_file)  # Path to the image file
+
+            image = plt.imread(image_path)
+            label = one_hot_dict[character]
+
+            # Append the preprocessed image and label to the lists
+            images.append(image)
+            labels.append(label)
+
+    # Convert the image and label lists to numpy arrays
+    out_labels = np.array(labels)
+    images = np.array(images)
+
+    return images, out_labels
+
+# if __name__ == '__main__':
+#     ALPUB_PATH = '../../Datasets/alpub_v2/images'
+#     X,Y = read_alpub_data(path=ALPUB_PATH)
