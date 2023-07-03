@@ -57,6 +57,7 @@ def read_alpub_data(path):
 
     return images, out_labels
 
+
 # if __name__ == '__main__':
 #     ALPUB_PATH = '../../Datasets/alpub_v2/images'
 #     X,Y = read_alpub_data(path=ALPUB_PATH)
