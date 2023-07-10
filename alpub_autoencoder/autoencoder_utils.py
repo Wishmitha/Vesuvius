@@ -58,6 +58,60 @@ def read_alpub_data(path):
     return images, out_labels
 
 
+def read_alpub_data_with_segmentation_masks(img_path, seg_path):
+    # List of character labels same as sub-folder names
+    character_labels = list_subfolders(img_path)
+
+    # Initialize empty lists to store images and labels
+    images = []
+    labels = []
+    masks = []
+
+    # Create an instance of the OneHotEncoder
+    encoder = OneHotEncoder()
+    # Fit the encoder on the character labels
+    encoder.fit(np.array(character_labels).reshape(-1, 1))
+    # Convert the character labels to one-hot encoding
+    one_hot_labels = encoder.transform(np.array(character_labels).reshape(-1, 1)).toarray()
+    one_hot_dict = {label: one_hot for label, one_hot in zip(character_labels, one_hot_labels)}
+
+    # Loop through each character label
+    for character in character_labels:
+        character_folder = os.path.join(img_path, character)  # Path to the character folder
+
+        print("Processing Image", character)
+
+        # Loop through each image file in the character folder
+        for image_file in os.listdir(character_folder):
+            image_path = os.path.join(character_folder, image_file)  # Path to the image file
+
+            image = plt.imread(image_path)
+            label = one_hot_dict[character]
+
+            # Append the preprocessed image and label to the lists
+            images.append(image)
+            labels.append(label)
+
+    # Loop through segmentation masks folder
+
+    seg_files = sorted(os.listdir(seg_path), key=lambda x: int(x.split('_')[-1].split('.')[0]))
+
+    for seg_file in seg_files:
+        seg_image_path = os.path.join(seg_path, seg_file)
+
+        print("Processing Masks:", seg_image_path)
+
+        image = plt.imread(seg_image_path)
+
+        masks.append(image)
+
+    # Convert the image and label lists to numpy arrays
+    out_labels = np.array(labels)
+    images = np.array(images)
+    masks = np.array(masks)
+
+    return images, out_labels, masks
+
 # if __name__ == '__main__':
 #     ALPUB_PATH = '../../Datasets/alpub_v2/images'
 #     X,Y = read_alpub_data(path=ALPUB_PATH)
