@@ -112,6 +112,16 @@ def read_alpub_data_with_segmentation_masks(img_path, seg_path):
 
     return images, out_labels, masks
 
+
+def normalize_masks(masks):
+    masks_list = []
+
+    for mask in masks:
+        mask = np.round(mask / 255)
+        masks_list.append(mask)
+
+    return np.array(masks_list)
+
 # if __name__ == '__main__':
 #     ALPUB_PATH = '../../Datasets/alpub_v2/images'
 #     X,Y = read_alpub_data(path=ALPUB_PATH)
