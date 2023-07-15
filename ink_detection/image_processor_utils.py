@@ -90,7 +90,17 @@ def crop_image_set(input_path, output_path, window_size, stride):
                 # Save the crops
                 for i, crop in enumerate(crops):
                     crop_path = os.path.join(image_output_folder, f"crop_{i}.png")
-                    cv2.imwrite(crop_path, crop)
+
+                    if image_output_folder == 'surface_volume':
+                        bit_depth = 16
+                    if image_output_folder == 'ir_crops':
+                        bit_depth = 8
+                    else:
+                        bit_depth = 1
+                    # Set the parameters for image saving
+                    params = [cv2.IMWRITE_PNG_COMPRESSION, 0, cv2.IMWRITE_PNG_BITDEPTH, bit_depth]
+
+                    cv2.imwrite(crop_path, crop, params)
 
                 print(f"Processed {file}: {len(crops)} crops saved in {image_output_folder}")
 
@@ -137,6 +147,6 @@ if __name__ == '__main__':
     # output_path = "../../Datasets/vesuvius-challenge-ink-detection/cropped_train"
     # crop_image_set(input_path, output_path, window_size=70, stride=10)
 
-    save_mask_indices('../../Datasets/vesuvius-challenge-ink-detection/cropped_test', dataset='test')
+    #save_mask_indices('../../Datasets/vesuvius-challenge-ink-detection/cropped_test', dataset='test')
 
     pass

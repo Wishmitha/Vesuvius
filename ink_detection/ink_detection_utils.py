@@ -38,13 +38,10 @@ def load_dataset(dataset_path, dataset):
 
             # Load the target label image
             target_label_image = cv2.imread(target_label_path)
-            target_label_image = cv2.cvtColor(target_label_image, cv2.COLOR_BGR2RGB)
             target_labels.append(target_label_image)
 
             # Load the train label images
             train_label_images = [cv2.imread(train_label_path) for train_label_path in train_label_paths]
-            train_label_images = [cv2.cvtColor(train_label_image, cv2.COLOR_BGR2RGB) for train_label_image in
-                                  train_label_images]
             train_labels.append(train_label_images)
 
         # Convert the lists to numpy arrays for convenience
