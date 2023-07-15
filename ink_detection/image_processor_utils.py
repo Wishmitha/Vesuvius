@@ -95,6 +95,38 @@ def crop_image_set(input_path, output_path, window_size, stride):
                 print(f"Processed {file}: {len(crops)} crops saved in {image_output_folder}")
 
 
+def save_mask_indices(path, dataset):
+    # Iterate through all image files in the folder
+    if dataset == 'train':
+        frag_names = ['1','2','3']
+    else:
+        frag_names = ['a','b']
+
+    for frag in frag_names:
+
+        for filename in os.listdir(os.path.join(os.path.join(path, frag),'mask_crops')):
+
+            save_path = os.path.join(path, frag)
+
+            if filename.lower().endswith(('.png')):
+                image_path = os.path.join(os.path.join(os.path.join(path, frag),'mask_crops'), filename)
+
+                # Load the image
+                image = Image.open(image_path)
+
+                # Convert the image to grayscale
+                image = image.convert('L')
+
+                # Convert the image to a NumPy array
+                image_array = np.array(image)
+
+                # Check if the median pixel value is 255
+                if np.median(image_array) == 255:
+                    # Save the file name in a text file
+                    with open(os.path.join(save_path, 'masked_crops.txt'), 'a') as file:
+                        file.write(filename + '\n')
+
+
 if __name__ == '__main__':
 
     # input_path = "../../Datasets/vesuvius-challenge-ink-detection/train"
@@ -102,7 +134,9 @@ if __name__ == '__main__':
     # resize_image_set(input_path, output_path)
 
     # input_path = "../../Datasets/vesuvius-challenge-ink-detection/resized_train"
-    # output_path = "../../Datasets/vesuvius-challenge-ink-detection/cropped_train_x"
+    # output_path = "../../Datasets/vesuvius-challenge-ink-detection/cropped_train"
     # crop_image_set(input_path, output_path, window_size=70, stride=10)
+
+    save_mask_indices('../../Datasets/vesuvius-challenge-ink-detection/cropped_test', dataset='test')
 
     pass
