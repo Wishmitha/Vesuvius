@@ -36,7 +36,7 @@ def resize_image_set(input_path, output_path):
 
                 # Read and process the image
                 image_path = os.path.join(root, file)
-                reszied_image = resize_image(image_path, factor=0.07)
+                reszied_image = resize_image(image_path, factor=0.25)
 
                 # Save the image in the output folder
                 output_file = os.path.join(output_folder, file)
@@ -129,14 +129,14 @@ def save_mask_indices(path, dataset):
 
 if __name__ == '__main__':
 
-    # input_path = "../../Datasets/vesuvius-challenge-ink-detection/train"
-    # output_path = "../../Datasets/vesuvius-challenge-ink-detection/resized_train"
+    # input_path = "../../Datasets/vesuvius-challenge-ink-detection/test"
+    # output_path = "../../Datasets/vesuvius-challenge-ink-detection/resized_test_250"
     # resize_image_set(input_path, output_path)
 
-    # input_path = "../../Datasets/vesuvius-challenge-ink-detection/resized_test"
-    # output_path = "../../Datasets/vesuvius-challenge-ink-detection/cropped_test_70"
-    # crop_image_set(input_path, output_path, window_size=70, stride=70)
+    # input_path = "../../Datasets/vesuvius-challenge-ink-detection/resized_test_250"
+    # output_path = "../../Datasets/vesuvius-challenge-ink-detection/cropped_test_256"
+    # crop_image_set(input_path, output_path, window_size=256, stride=100)
 
-    #save_mask_indices('../../Datasets/vesuvius-challenge-ink-detection/cropped_test_70', dataset='test')
+    #save_mask_indices('../../Datasets/vesuvius-challenge-ink-detection/cropped_test_256', dataset='test')
 
     pass

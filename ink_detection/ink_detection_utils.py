@@ -8,10 +8,10 @@ from PIL import Image
 
 def load_dataset(dataset_path, dataset):
     if dataset == 'train':
-        path = os.path.join(dataset_path, 'cropped_train')
+        path = os.path.join(dataset_path, 'cropped_train_256')
         frags = ['1', '2', '3']
     else:
-        path = os.path.join(dataset_path, 'cropped_test')
+        path = os.path.join(dataset_path, 'cropped_test_256')
         frags = ['a', 'b']
 
     # Read the file names from masked_crops.txt
