@@ -83,7 +83,7 @@ def load_volumes(path):
     return images_array
 
 
-def get_crop_position(image_height, image_width, crop_number, window_size=70, stride=10):
+def get_crop_position(image_height, image_width, crop_number, window_size=256, stride=100):
     crop_row = crop_number // ((image_height - window_size) // stride + 1)
     crop_col = crop_number % ((image_width - window_size) // stride + 1)
     x = crop_col * stride
@@ -158,4 +158,4 @@ def get_crop_numer_list(file_name):
     # Convert the matched strings to integers
     numbers = [int(match) for match in matches]
 
-    return numbers
+    return sorted(numbers)
