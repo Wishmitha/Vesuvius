@@ -114,6 +114,23 @@ def read_alpub_data_with_segmentation_masks(img_path, seg_path):
     return images, out_labels, masks
 
 
+def read_payri_images(path):
+    image_list = []
+
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if file.lower().endswith('.jpg'):
+                image_path = os.path.join(root, file)
+                try:
+                    img = plt.imread(image_path)
+                    img_array = np.array(img)
+                    image_list.append(img_array)
+                except Exception as e:
+                    print(f"Error reading image '{image_path}': {e}")
+
+    return np.array(image_list)
+
+
 def normalize_masks(masks):
     masks_list = []
 
