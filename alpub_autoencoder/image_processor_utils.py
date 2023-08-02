@@ -10,6 +10,25 @@ def smoothen_image(image, kernel_size):
 
     return image
 
+def fill_background_patches(image):
+    # Read the image using cv2
+
+    # Step 1: Threshold the image to identify the white paths
+    _, thresholded = cv2.threshold(image, 200, 255, cv2.THRESH_BINARY)  # Adjust threshold value as needed
+
+    # Step 2: Create a mask of the white paths
+    mask = np.zeros_like(image)
+    mask[thresholded == 255] = 1
+
+    # Step 3: Obtain the background intensity value
+    background_intensity = np.mean(image[mask == 0])
+
+    # Step 4: Replace white path pixels with the background intensity value
+    result_image = np.where(mask == 1, background_intensity, image)
+    result_image = np.uint8(result_image)
+
+    return result_image
+
 
 def apply_adaptive_thresholding(image):
     # Set the blockSize and C parameters as per your requirements
