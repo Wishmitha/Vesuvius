@@ -75,7 +75,7 @@ def crop_image_set(input_path, output_path, window_size, stride):
         # Process image files in the current folder
         for file in files:
             # Check if the file is a PNG or TIFF image
-            if file.endswith(".png") or file.endswith(".tif"):
+            if file.endswith(".png") or file.endswith(".tif") or file.endswith(".jpg"):
                 # Read the image
                 image_path = os.path.join(root, file)
                 image = cv2.imread(image_path)
@@ -133,9 +133,9 @@ if __name__ == '__main__':
     # output_path = "../../Datasets/vesuvius-challenge-ink-detection/resized_test_250"
     # resize_image_set(input_path, output_path)
 
-    # input_path = "../../Datasets/vesuvius-challenge-ink-detection/resized_test_250"
-    # output_path = "../../Datasets/vesuvius-challenge-ink-detection/cropped_test_256"
-    # crop_image_set(input_path, output_path, window_size=256, stride=100)
+    input_path = "../../Datasets/alpub_v2/papyri_images/seg_mask_otsu"
+    output_path = "../../Datasets/alpub_v2/papyri_images/seg_mask_otsu_256"
+    crop_image_set(input_path, output_path, window_size=256, stride=100)
 
     #save_mask_indices('../../Datasets/vesuvius-challenge-ink-detection/cropped_test_256', dataset='test')
 
