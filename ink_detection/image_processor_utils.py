@@ -134,8 +134,8 @@ if __name__ == '__main__':
     # resize_image_set(input_path, output_path)
 
     input_path = "../../Datasets/alpub_v2/papyri_images/seg_mask_otsu"
-    output_path = "../../Datasets/alpub_v2/papyri_images/seg_mask_otsu_256"
-    crop_image_set(input_path, output_path, window_size=256, stride=100)
+    output_path = "../../Datasets/alpub_v2/papyri_images/seg_mask_otsu_256_200"
+    crop_image_set(input_path, output_path, window_size=256, stride=200)
 
     #save_mask_indices('../../Datasets/vesuvius-challenge-ink-detection/cropped_test_256', dataset='test')
 

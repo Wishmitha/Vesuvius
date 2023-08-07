@@ -119,8 +119,9 @@ def read_payri_images(path):
 
     for root, dirs, files in os.walk(path):
         for file in files:
-            if file.lower().endswith('.jpg'):
+            if file.lower().endswith('.jpg') or file.lower().endswith('.png'):
                 image_path = os.path.join(root, file)
+                print("Reading",image_path)
                 try:
                     img = plt.imread(image_path)
                     img_array = np.array(img)
