@@ -133,10 +133,10 @@ if __name__ == '__main__':
     # output_path = "../../Datasets/vesuvius-challenge-ink-detection/resized_test_250"
     # resize_image_set(input_path, output_path)
 
-    input_path = "../../Datasets/vesuvius-challenge-ink-detection/train"
-    output_path = "../../Datasets/vesuvius-challenge-ink-detection/cropped_train_1024"
-    crop_image_set(input_path, output_path, window_size=1024, stride=512)
+    # input_path = "../../Datasets/vesuvius-challenge-ink-detection/train"
+    # output_path = "../../Datasets/vesuvius-challenge-ink-detection/cropped_train_1024"
+    # crop_image_set(input_path, output_path, window_size=1024, stride=512)
 
-    #save_mask_indices('../../Datasets/vesuvius-challenge-ink-detection/cropped_test_256', dataset='test')
+    save_mask_indices('../../Datasets/vesuvius-challenge-ink-detection/cropped_train_1024',dataset='train')
 
     pass
