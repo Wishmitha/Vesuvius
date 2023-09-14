@@ -10,6 +10,9 @@ def load_dataset(dataset_path, dataset):
     if dataset == 'train':
         path = os.path.join(dataset_path, 'cropped_train_256')
         frags = ['1', '2', '3']
+    elif dataset == 'validation':
+        path = os.path.join(dataset_path, '')
+        frags = ['']
     else:
         path = os.path.join(dataset_path, 'cropped_test_256')
         frags = ['a', 'b']
